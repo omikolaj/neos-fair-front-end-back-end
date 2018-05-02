@@ -5,6 +5,8 @@ Rails.application.routes.draw do
     resources :users do
       resources :drafts, :controller => :ad, type: 'Draft'
     end
-  end
 
+    resources :ads
+
+  end
 end
