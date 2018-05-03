@@ -23,8 +23,6 @@ class Api::AdsController < ApplicationController
 
     def edit
 
-    end
-
-    
+    end    
 
 end
