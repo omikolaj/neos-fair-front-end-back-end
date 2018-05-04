@@ -1,7 +1,8 @@
 class Api::AdsController < ApplicationController
     
     def index
-
+        ads = Ad.all
+        render json: ads, status: 200
     end
 
     def show
