@@ -10,20 +10,12 @@ class Api::AdsController < ApplicationController
         render json: ad, status: 200
     end
 
-    def new
-
-    end
-
     def create
-
+        binding.pry
     end
 
     def update
-
-    end
-
-    def edit
-
-    end    
+        binding.pry
+    end   
 
 end
