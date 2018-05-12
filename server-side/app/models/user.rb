@@ -6,6 +6,7 @@ class User < ApplicationRecord
     has_many :ads, :through => :ad_items
     has_many :items, :through => :ads
     has_many :orders
+    validates :email, presence: true
 
     private
 

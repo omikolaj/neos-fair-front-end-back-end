@@ -3,5 +3,6 @@ class AdItem < ApplicationRecord
     has_one :ad
     has_one :order
     has_one :item
-    has_one :category    
+    has_one :category
+    validates :price, presence: true
 end
