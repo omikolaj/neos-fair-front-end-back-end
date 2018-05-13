@@ -6,9 +6,11 @@ class Ad < ApplicationRecord
     has_one :category, :through => :ad_item
     validates :title, :description, presence: true, length: { minimum: 2 }
     validate do |ad|
-        if !ad.ad_item.item.valid?
-            ad.ad_item.item.errors.full_messages.each do |msg|
-                errors[:base] << "Item name can't be blank"
+        if ad.ad_item.item
+            if ad.ad_item.item.valid?
+                ad.ad_item.item.errors.full_messages.each do |msg|
+                    errors[:base] << "Item name can't be blank"
+                end
             end
         end
     end
