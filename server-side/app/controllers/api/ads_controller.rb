@@ -11,6 +11,7 @@ class Api::AdsController < ApplicationController
     end
 
     def create
+        binding.pry
         ad = Ad.new(ad_params)
         if ad.save
             render json: { :success => "You're add has been successfully posted", :id => ad.id, status: 201 }, status: 201 # Created
