@@ -10,4 +10,12 @@ class Api::UsersController < ApplicationController
         
         render json: user, status: 200, include: '**'
     end
+
+    def create
+
+    end
+
+    def destroy
+
+    end
 end
