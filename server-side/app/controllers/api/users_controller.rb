@@ -21,7 +21,6 @@ class Api::UsersController < ApplicationController
     end
 
     def login
-        binding.pry
         user = User.find_by(:username => params[:username])
         if user && user.authenticate(params[:password])
             auth_token = JsonWebToken.encode({user_id: user.id})
