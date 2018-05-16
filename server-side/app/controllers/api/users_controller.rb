@@ -26,7 +26,7 @@ class Api::UsersController < ApplicationController
         if user && user.authenticate(params[:password])
             binding.pry
             auth_token = JsonWebToken.encode({user_id: user.id})
-            render json: {token: auth_token, userID: user.id, status: 200}, status: 200
+            render json: {token: auth_token, expiresIn: 10800, userID: user.id, status: 200}, status: 200
         else
             binding.pry
             render json: {error: 'Invalid username / password', status: 401}, status: 401

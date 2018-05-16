@@ -1,7 +1,8 @@
 class Api::AdsController < ApplicationController
     
     def index
-        ads = Ad.all
+        binding.pry
+        ads = Ad.all        
         render json: ads, status: 203 # Non-Authoritative Information
     end
 
@@ -26,7 +27,7 @@ class Api::AdsController < ApplicationController
 
     private
     def ad_params
-        params.require(:ad).permit(:id, :title, :description, :ad_item_attributes => [:price], :user_attributes => [:email], :item_attributes => [:title, :condition], :category_attributes => [:name])
+        params.require(:ad).permit(:id, :auth, :title, :description, :ad_item_attributes => [:price], :user_attributes => [:email], :item_attributes => [:title, :condition], :category_attributes => [:name])
     end
 
 end
