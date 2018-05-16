@@ -1,7 +1,7 @@
 class Api::AdsController < ApplicationController
     
     def index
-        binding.pry
+        # binding.pry
         ads = Ad.all        
         render json: ads, status: 203 # Non-Authoritative Information
     end
