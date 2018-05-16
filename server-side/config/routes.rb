@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   namespace :api, defaults: {:format => :json} do 
 
     resources :users do
+      collection do
+        post 'login'
+      end
       resources :drafts, :controller => :ad, type: 'Draft'
     end
 
