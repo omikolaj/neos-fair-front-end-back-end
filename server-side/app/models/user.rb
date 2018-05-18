@@ -10,7 +10,7 @@ class User < ApplicationRecord
     validates :email, presence: true
     validates_uniqueness_of :email, case_sensitive: false
     # validates_format_of :email, with /@/
-    validates :password, :length => {:within=>6..100}, :presence => true, unless: :omniauth
+    validates :password, :length => {:within=>6..100}, :presence => true #unless: :omniauth
     validates :username, presence: true
     validates_uniqueness_of :username, case_sensitive: false
     validates :first_name, :last_name, presence: true
