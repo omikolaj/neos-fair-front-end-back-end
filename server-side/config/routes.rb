@@ -3,12 +3,12 @@ Rails.application.routes.draw do
   namespace :api, defaults: {:format => :json} do 
 
     resources :users do
-      collection do
-        post 'login'
-        post 'guest'
-      end
       resources :drafts, :controller => :ad, type: 'Draft'
     end
+
+    post '/login', to: 'sessions#login'
+    post '/guest', to: 'sessions#guest'
+    get '/auth/github/callback', to: 'sessions#github'
 
     resources :ads
 
