@@ -27,7 +27,7 @@ class Api::SessionsController < ActionController::Base
 		user = User.find_or_create_by_oauth(user_hash)
 		if user
 			token = auth_token(user.uid)
-			redirect_to "#{ENV["NEOS_FAIR_CLIENT_URL"]}/ads?token=#{token}&expiresIn=#{ENV["EXPIRES_IN"]}&id=#{user.id}"
+			redirect_to "#{ENV["NEOS_FAIR_CLIENT_URL"]}/?token=#{token}&expiresIn=#{ENV["EXPIRES_IN"]}&id=#{user.id}"
 		else
 			redirect_to "#{ENV["NEOS_FAIR_CLIENT_URL"]}?error=error"
 		end
