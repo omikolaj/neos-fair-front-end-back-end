@@ -10,12 +10,30 @@ class User < ApplicationRecord
     validates :email, presence: true
     validates_uniqueness_of :email, case_sensitive: false
     # validates_format_of :email, with /@/
-    validates :password, :length => {:within=>6..100}, :presence => true #unless: :omniauth
+    validates :password, :length => {:within=>6..100}, :presence => true, unless: :oauth
     validates :username, presence: true
     validates_uniqueness_of :username, case_sensitive: false
-    validates :first_name, :last_name, presence: true
+    validates :name, presence: true
     # validates :last_name, presence: true
     
+    def self.find_or_create_by_oauth(user_info)
+        self.where(:uid => user_info["id"]).first_or_create do |user|
+            user.email = user.set_github_email(user_info)
+            user.password = SecureRandom.hex
+            user.name = user.set_github_name(user_info)
+            user.username = user_info["login"]
+            user.oauth = true
+        end
+    end
+    
+    def set_github_email(info)
+        info["email"].nil? ? "#{info["login"]}@email.com" : info["email"]
+    end
+
+    def set_github_name(info)
+        info["name"].nil? ? "#{info["login"]}" : info["name"]
+    end
+
     private
     def downcase_email
         self.email = self.email.delete(" ").downcase

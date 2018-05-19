@@ -4,7 +4,7 @@ class Api::UsersController < ApplicationController
         user = User.new(user_params)
         if user.save
             auth_token = auth_token(user.id)
-            render json: {token: auth_token, expiresIn: 10800, userID: user.id, status: 201}, status: 201
+            render json: {token: auth_token, expiresIn: ENV["EXPIRES_IN"], userID: user.id, status: 201}, status: 201
         else
             render json: {error: user.errors.full_messages}, status: 400
         end
@@ -32,7 +32,7 @@ class Api::UsersController < ApplicationController
 
     private
     def user_params
-        params.require(:user).permit(:email, :password, :first_name, :last_name, :username)
+        params.require(:user).permit(:email, :password, :name, :username)
     end
 
     def auth_token(id)
