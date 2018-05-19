@@ -18,9 +18,12 @@ gem 'puma', '~> 3.7'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
- gem 'bcrypt', '~> 3.1.7'
- gem 'dotenv-rails'
+gem 'bcrypt', '~> 3.1.7'
+gem 'dotenv-rails'
 gem 'active_model_serializers', '~> 0.10.0'
+# gem 'omniauth'
+# gem 'omniauth-github'
+gem 'faraday'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     post '/login', to: 'sessions#login'
     post '/guest', to: 'sessions#guest'
     get '/auth/github/callback', to: 'sessions#github'
+    get '/authenticate', to: 'sessions#authenticate'
 
     resources :ads
 

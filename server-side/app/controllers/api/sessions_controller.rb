@@ -1,4 +1,5 @@
-class Api::SessionsController < ApplicationController
+class Api::SessionsController < ActionController::Base
+	require 'GitHubService'
   
 	def login
 	    user = User.find_by(:username => params[:session][:user][:username])
@@ -21,7 +22,10 @@ class Api::SessionsController < ApplicationController
 	end
 
 	def github
-		binding.pry
+		github = GithubService.new
+		token = github.fetch_access_token(params[:code])
+		binding.pry	
+
 	end
 
 	private
