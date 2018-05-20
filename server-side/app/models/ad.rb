@@ -20,7 +20,7 @@ class Ad < ApplicationRecord
     end
 
     def user_attributes=(user_attributes)
-        self.ad_item.user = User.all.first      
+        self.ad_item.user = User.find_by(:id => user_attributes["id"])      
     end
 
     def item_attributes=(item_attributes)

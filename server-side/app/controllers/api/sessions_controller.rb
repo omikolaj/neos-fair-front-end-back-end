@@ -2,7 +2,7 @@ class Api::SessionsController < ActionController::Base
 	require 'GithubService'
   
 	def login
-	    user = User.find_by(:username => params[:session][:user][:username])
+	    user = User.where("lower(username) = ?", params[:session][:user][:username].downcase).first
 		if user && user.authenticate(params[:session][:user][:password])
         	auth_token = auth_token(user.id)
         	render json: {token: auth_token, expiresIn: ENV["EXPIRES_IN"], userID: user.id, status: 200}, status: 200
