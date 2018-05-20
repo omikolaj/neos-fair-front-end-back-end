@@ -25,11 +25,12 @@ class Api::SessionsController < ActionController::Base
 		github = GithubService.new
 		user_hash = github.user_info(params[:code])
 		user = User.find_or_create_by_oauth(user_hash)
-		if user
+		if user.valid? && user.uid 
 			token = auth_token(user.uid)
 			redirect_to "#{ENV["NEOS_FAIR_CLIENT_URL"]}/?token=#{token}&expiresIn=#{ENV["EXPIRES_IN"]}&id=#{user.id}"
 		else
-			redirect_to "#{ENV["NEOS_FAIR_CLIENT_URL"]}?error=error"
+			error = "#{user_hash["message"]}. 500 Internal Server Error."
+			redirect_to "#{ENV["NEOS_FAIR_CLIENT_URL"]}?error=#{error}"
 		end
 	end
 

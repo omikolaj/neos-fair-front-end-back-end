@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 20180502212410) do
     t.string "password_digest"
     t.string "email"
     t.boolean "oauth", default: false
-    t.integer "uid"
+    t.integer "uid", default: -1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "token"
