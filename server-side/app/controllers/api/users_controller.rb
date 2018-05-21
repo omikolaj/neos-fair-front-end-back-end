@@ -16,7 +16,7 @@ class Api::UsersController < ApplicationController
             userInfo = {name: user.name, username: user.username, email: user.email}
             render json: {userInfo: userInfo, status: 200}, status: 200
         else
-            render json: {error: "There was an error retrieving user information."}
+            render json: {error: "There was an error retrieving user information.", status: 404}, status: 404
         end
     end
 
