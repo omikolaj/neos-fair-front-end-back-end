@@ -10,29 +10,19 @@ class Api::UsersController < ApplicationController
         end
     end
 
-    # def login
-    #     user = User.find_by(:username => user_params[:username])
-    #     if user && user.authenticate(user_params[:password])
-    #         auth_token = auth_token(user.id)
-    #         render json: {token: auth_token, expiresIn: 10800, userID: user.id, status: 200}, status: 200
-    #     else
-    #         render json: {error: 'Invalid username / password', status: 401}, status: 401
-    #     end
-    # end
-
-    # def guest
-    #     user = User.find_by(:id => 1)
-    #     if user
-    #         auth_token = auth_token(user.id)
-    #         render json: {token: auth_token, expiresIn: 10800, userID: user.id, status: 200}, status: 200
-    #     else
-    #         render json: {error: 'User was not found', status: 401}, status: 401
-    #     end        
-    # end
+    def show
+        user = User.find_by(:id=>params[:id])
+        if user
+            userInfo = {name: user.name, username: user.username, email: user.email}
+            render json: {userInfo: userInfo, status: 200}, status: 200
+        else
+            render json: {error: "There was an error retrieving user information."}
+        end
+    end
 
     private
     def user_params
-        params.require(:user).permit(:email, :password, :name, :username)
+        params.require(:user).permit(:id, :email, :password, :name, :username)
     end
 
     def auth_token(id)
