@@ -20,6 +20,10 @@ class Api::UsersController < ApplicationController
         end
     end
 
+    def update
+        binding.pry
+    end
+
     private
     def user_params
         params.require(:user).permit(:id, :email, :password, :name, :username)
