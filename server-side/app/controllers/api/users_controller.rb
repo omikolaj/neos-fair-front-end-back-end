@@ -20,8 +20,15 @@ class Api::UsersController < ApplicationController
         end
     end
 
-    def update
-        binding.pry
+    def update       
+        if user = User.find_by(:id=>user_params["id"])
+            if user.update(user_params)
+                userInfo = {name: user.name, username: user.username, email: user.email}
+                render json: {success: "Account successfully updated!", userInfo: userInfo, status: 200}, status: 200            
+            end
+        else
+            render json: {fail: "Account did not update", status: 400}, status: 400
+        end
     end
 
     private
