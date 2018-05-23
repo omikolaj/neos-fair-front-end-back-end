@@ -3,7 +3,6 @@ class Api::AdsController < ApplicationController
     def index
         if user = User.find_by(:id => params[:user_id])
             ads = user.ads
-            binding.pry
             render json: {ads: ads, status: 200}, status: 200
         else
             ads = Ad.all        
@@ -18,7 +17,9 @@ class Api::AdsController < ApplicationController
 
     def create
         ad = Ad.new(ad_params)
+        binding.pry
         if ad.save
+            binding.pry
             render json: { :success => "You're add has been successfully posted", :id => ad.id, status: 201 }, status: 201 # Created
         else
             render json: { :fail => "Something went wrong.", :validations => ad.errors.full_messages, :status=> 400}, status: 400 # Bad Request
