@@ -3,6 +3,7 @@ class Api::AdsController < ApplicationController
     def index
         if user = User.find_by(:id => params[:user_id])
             ads = user.ads
+            binding.pry
             render json: {ads: ads, status: 200}, status: 200
         else
             ads = Ad.all        
