@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
     resources :users do
       resources :drafts, :controller => :ad, type: 'Draft'
+      resources :ads
+      resources :orders
     end
 
     post '/login', to: 'sessions#login'

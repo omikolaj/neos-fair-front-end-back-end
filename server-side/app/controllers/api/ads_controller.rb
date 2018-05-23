@@ -1,8 +1,13 @@
 class Api::AdsController < ApplicationController
     
     def index
-        ads = Ad.all        
-        render json: ads, status: 203 # Non-Authoritative Information
+        if user = User.find_by(:id => params[:user_id])
+            ads = user.ads
+            render json: {ads: ads, status: 200}, status: 200
+        else
+            ads = Ad.all        
+            render json: ads, status: 203 # Non-Authoritative Information
+        end
     end
 
     def show
