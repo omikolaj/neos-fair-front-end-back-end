@@ -5,5 +5,4 @@ class AdItem < ApplicationRecord
     has_one :item
     has_one :category
     validates :price, presence: true
-
 end
