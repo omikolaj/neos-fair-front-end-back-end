@@ -6,24 +6,47 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-User.create(:name => 'Oskar Miko', :email =>'osk@gmail.com', :password => "password", :username=>"TheBetterKind")
+# User.create(:name => 'Oskar Miko', :email =>'osk@gmail.com', :password => "password", :username=>"TheBetterKind")
 
 AdItem.create(:user_id => 1, :price=>100, :post_date=>DateTime.now.to_date)
+AdItem.create(:user_id => 1, :price=>200, :post_date=>DateTime.now.to_date)
+AdItem.create(:user_id => 1, :price=>300, :post_date=>DateTime.now.to_date)
+AdItem.create(:user_id => 1, :price=>400, :post_date=>DateTime.now.to_date)
+AdItem.create(:user_id => 1, :price=>500, :post_date=>DateTime.now.to_date)
+AdItem.create(:user_id => 1, :price=>600, :post_date=>DateTime.now.to_date)
+AdItem.create(:user_id => 1, :price=>700, :post_date=>DateTime.now.to_date)
 
-# AdItem.create(:user_id => 2, :price=>300)
-
-# AdItem.create(:user_id => 1, :price=>350)
 
 Item.create(:title => "Barbie", :condition=>"used",:ad_item_id => 1)
+Item.create(:title => "Barbie", :condition=>"used",:ad_item_id => 2)
+Item.create(:title => "Barbie", :condition=>"used",:ad_item_id => 3)
+Item.create(:title => "Barbie", :condition=>"used",:ad_item_id => 4)
+Item.create(:title => "Barbie", :condition=>"used",:ad_item_id => 5)
+Item.create(:title => "Barbie", :condition=>"used",:ad_item_id => 6)
+Item.create(:title => "Barbie", :condition=>"used",:ad_item_id => 7)
 
-# Item.create(:title => "G.I. Joe", :ad_item_id => 3)
 
 Ad.create(:ad_item_id => 1,:description => "My First Ad Description", :title => "Selling awesome stuff", :published => false)
+Ad.create(:ad_item_id => 2,:description => "My First Ad Description1", :title => "Selling awesome stuff1", :published => false)
+Ad.create(:ad_item_id => 3,:description => "My First Ad Description2", :title => "Selling awesome stuff2", :published => false)
+Ad.create(:ad_item_id => 4,:description => "My First Ad Description3", :title => "Selling awesome stuff3", :published => false)
+Ad.create(:ad_item_id => 5,:description => "My First Ad Description4", :title => "Selling awesome stuff4", :published => false)
+Ad.create(:ad_item_id => 6,:description => "My First Ad Description5", :title => "Selling awesome stuff5", :published => false)
+Ad.create(:ad_item_id => 7,:description => "My First Ad Description6", :title => "Selling awesome stuff6", :published => false)
 
-# Ad.create(:ad_item_id => 3,:description => "Another One Bites", :title => "Best Ad Ever", :published => false)
-
-# Ad.create(:ad_item_id => 4,:description => "One Bites", :title => "Ad Ever", :published => false)
 
 Category.create(:ad_item_id => 1, :name => "Toys")
+Category.create(:ad_item_id => 2, :name => "Toys")
+Category.create(:ad_item_id => 3, :name => "Toys")
+Category.create(:ad_item_id => 4, :name => "Toys")
+Category.create(:ad_item_id => 5, :name => "Toys")
+Category.create(:ad_item_id => 6, :name => "Toys")
+Category.create(:ad_item_id => 7, :name => "Toys")
 
 Order.create(:ad_item_id => 1, :user_id => 1, :old => true, :purchased_date=>DateTime.now.to_date)
+Order.create(:ad_item_id => 2, :user_id => 1, :old => true, :purchased_date=>DateTime.now.to_date)
+Order.create(:ad_item_id => 3, :user_id => 1, :old => true, :purchased_date=>DateTime.now.to_date)
+Order.create(:ad_item_id => 4, :user_id => 1, :old => true, :purchased_date=>DateTime.now.to_date)
+Order.create(:ad_item_id => 5, :user_id => 1, :old => true, :purchased_date=>DateTime.now.to_date)
+Order.create(:ad_item_id => 6, :user_id => 1, :old => true, :purchased_date=>DateTime.now.to_date)
+Order.create(:ad_item_id => 7, :user_id => 1, :old => true, :purchased_date=>DateTime.now.to_date)

@@ -21,7 +21,7 @@ class Api::UsersController < ApplicationController
     end
 
     def update       
-        if user = User.find_by(:id=>user_params["id1"])
+        if user = User.find_by(:id=>user_params["id"])
             if user.update(user_params)
                 userInfo = {name: user.name, username: user.username, email: user.email}
                 render json: {success: "Account successfully updated!", userInfo: userInfo, status: 200}, status: 200            

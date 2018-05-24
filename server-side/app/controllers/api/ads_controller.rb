@@ -28,9 +28,19 @@ class Api::AdsController < ApplicationController
         binding.pry
     end
 
+    def destroy
+        if ad = User.find_by(:id=>params[:user_id]).ads.find_by(:id=>params[:id])
+            removed_ad_id = ad.id
+            ad.destroy
+            render json: {:success => "Ad successfully deleted", :removed_ad_id => removed_ad_id, status: 200}, status: 200
+        else
+            render json: {:fail => "Ad cannot be deleted", status: 400}, status: 400
+        end
+    end
+
     private
     def ad_params
-        params.require(:ad).permit(:id, :auth, :title, :description, :ad_item_attributes => [:price], :user_attributes => [:id], :item_attributes => [:title, :condition], :category_attributes => [:name])
+        params.require(:ad).permit(:id, :auth, :title, :description, :user_id, :ad_item_attributes => [:price], :user_attributes => [:id], :item_attributes => [:title, :condition], :category_attributes => [:name])
     end
 
 end
