@@ -6,13 +6,13 @@ class Api::AdsController < ApplicationController
             render json: {ads: ads, status: 200}, status: 200
         else
             ads = Ad.all        
-            render json: ads, status: 203 # Non-Authoritative Information
+            render json: ads, status: 200 # Non-Authoritative Information
         end
     end
 
     def show
         ad = Ad.find_by_id(params[:id])
-        render json: ad, status: 203
+        render json: ad, status: 200
     end
 
     def create
