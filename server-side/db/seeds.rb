@@ -26,7 +26,7 @@ Item.create(:title => "Barbie", :condition=>"used",:ad_item_id => 6)
 Item.create(:title => "Barbie", :condition=>"used",:ad_item_id => 7)
 
 
-Ad.create(:ad_item_id => 1,:description => "My First Ad Description", :title => "Selling awesome stuff", :published => false)
+Ad.create(:ad_item_id => 1,:description => "My First Ad Description", :title => "Selling awesome stuff", :published => true)
 Ad.create(:ad_item_id => 2,:description => "My First Ad Description1", :title => "Selling awesome stuff1", :published => false)
 Ad.create(:ad_item_id => 3,:description => "My First Ad Description2", :title => "Selling awesome stuff2", :published => false)
 Ad.create(:ad_item_id => 4,:description => "My First Ad Description3", :title => "Selling awesome stuff3", :published => false)

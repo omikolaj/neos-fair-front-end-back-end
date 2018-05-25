@@ -5,7 +5,7 @@ class Api::AdsController < ApplicationController
             ads = user.ads
             render json: {ads: ads, status: 200}, status: 200
         else
-            ads = Ad.all        
+            ads = Ad.where("published = ?", true)        
             render json: ads, status: 200 # Non-Authoritative Information
         end
     end
@@ -25,7 +25,13 @@ class Api::AdsController < ApplicationController
     end
 
     def update
-        binding.pry
+        if ad = User.find_by(:id => params[:user_id]).ads.find_by(:id=>params[:id])
+            ad.update_attributes!(:published => !ad.published)
+            ad = {:id => ad.id, :ad_item_id => ad.ad_item_id, :description => ad.description, :title => ad.title, :published =>ad.published}
+            render json: {:success => "Successfully updated ad's status", ad: ad, status: 200}, status: 200
+        else
+            render json: {:fail => 'User or ad were not found', :validations => ad.errors.full_messages, :status=>400}, status: 400
+        end
     end
 
     def destroy

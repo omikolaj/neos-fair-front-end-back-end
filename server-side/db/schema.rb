@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20180502212410) do
     t.string "description"
     t.string "title"
     t.boolean "published", default: false
+    t.boolean "sold", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["type", "ad_item_id"], name: "index_ads_on_type_and_ad_item_id"
