@@ -1,20 +1,23 @@
 class Api::AdsController < ApplicationController
     
-
     def pay
         user = User.find_by(:id=>params[:userID])
         price = params[:price]
         adID = params[:adID]
         if(user)
             if !user.ads.find_by(:id=> adID)
-                if user.can_afford?(price)
-                    user.adjust_wallet(price)
-                    user.create_new_order(adID)  
-                    Ad.set_to_sold(adID)                                      
-                    render json: {success: "You have successfully purchased your item", status: 200}, status: 200     
-                else
-                    render json: {fail: "You do not have enough money to purchase this item", status: 401}, status: 401
-                end
+                # if user.new_purchase?(adID)
+                    if user.can_afford?(price)
+                        user.adjust_wallet(price)
+                        user.create_new_order(adID)  
+                        Ad.set_to_sold(adID)                                      
+                        render json: {success: "You have successfully purchased your item", status: 200}, status: 200     
+                    else
+                        render json: {fail: "You do not have enough money to purchase this item", status: 401}, status: 401
+                    end
+                # else
+                #     render json: {fail: "You have already purchased this item", status: 401}, status: 401
+                # end
             else
                 render json: {fail: "You cannot buy your own item", status: 401}, status: 401
             end
@@ -29,7 +32,7 @@ class Api::AdsController < ApplicationController
             ads = user.ads
             render json: {ads: ads, status: 200}, status: 200
         else
-            ads = Ad.where("published = ?", true)        
+            ads = Ad.where("published = ? AND sold = ?", true, false)        
             render json: ads, status: 200 # Non-Authoritative Information
         end
     end
