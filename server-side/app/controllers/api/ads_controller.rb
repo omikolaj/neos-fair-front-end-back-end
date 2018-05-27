@@ -1,17 +1,27 @@
 class Api::AdsController < ApplicationController
-    include FormatPrice
+    
 
     def pay
         user = User.find_by(:id=>params[:userID])
         price = params[:price]
-        if(format_f(user.wallet).to_f.round(2) >= price.to_f.round(2))
-            updatedWallet = format_f(user.wallet).to_f.round(2) - price.to_f.round(2)
-            user.update_attribute(:wallet, BigDecimal.new("#{updatedWallet}"))
-            user.orders.create(:ad_item_id => Ad.find_by(:id => params[:userID]).ad_item.id)
-            render json: {success: "You have successfully purchased your item", status: 200}, status: 200     
+        adID = params[:adID]
+        if(user)
+            if !user.ads.find_by(:id=> adID)
+                if user.can_afford?(price)
+                    user.adjust_wallet(price)
+                    user.create_new_order(adID)  
+                    Ad.set_to_sold(adID)                                      
+                    render json: {success: "You have successfully purchased your item", status: 200}, status: 200     
+                else
+                    render json: {fail: "You do not have enough money to purchase this item", status: 401}, status: 401
+                end
+            else
+                render json: {fail: "You cannot buy your own item", status: 401}, status: 401
+            end
+            
         else
-            render json: {fail: "You do not have enough money to purchase this item", status: 401}, status: 401
-        end
+            render json: {fail: "Something went wrong...", status: 401}, status: 401
+        end        
     end
     
     def index

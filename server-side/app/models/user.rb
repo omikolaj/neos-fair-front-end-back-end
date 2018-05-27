@@ -15,7 +15,22 @@ class User < ApplicationRecord
     validates_uniqueness_of :username, case_sensitive: false
     validates :name, presence: true
     # validates :last_name, presence: true
-    
+    include FormatPrice
+
+    def can_afford?(price)
+        format_f(self.wallet).to_f.round(2) >= price.to_f.round(2)
+    end
+
+    def adjust_wallet(price)
+        remaining = format_f(self.wallet).to_f.round(2) - price.to_f.round(2)
+        self.update_attribute(:wallet, BigDecimal.new("#{remaining}"))
+    end
+
+    def create_new_order(adID)
+        self.orders.create!(:ad_item_id => Ad.find_by(:id => adID).ad_item.id)
+        
+    end
+
     def self.find_or_create_by_oauth(user_info)
         self.where(:uid => user_info["id"]).first_or_create do |user|
             user.email = user.set_github_email(user_info)

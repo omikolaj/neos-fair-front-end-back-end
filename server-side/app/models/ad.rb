@@ -21,6 +21,10 @@ class Ad < ApplicationRecord
             end
         end
     end
+
+    def self.set_to_sold(id)
+        Ad.find_by(:id=>id).update_attribute(:sold, true)
+    end
     
     def ad_item_attributes=(ad_item_attributes)        
         self.build_ad_item(ad_item_attributes)
