@@ -1,4 +1,5 @@
 class Api::OrdersController < ApplicationController
+  include FormatPrice
 
   def index
     if user = User.find_by(:id=>params[:user_id])
@@ -15,7 +16,7 @@ class Api::OrdersController < ApplicationController
     userOrdersArr = []
     user.orders.each_with_index do |order, index|
       orderItem = {title: order.item.title, condition: order.item.condition}
-      userOrders["order_#{index+1}"] = {item: orderItem, price: "$%.2f" % order.item.ad_item.price.truncate(2)}
+      userOrders["order_#{index+1}"] = {item: orderItem, price: format(order.item.ad_item.price)}
       userOrdersArr.push(userOrders)
     end
     userOrdersArr

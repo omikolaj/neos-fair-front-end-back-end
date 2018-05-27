@@ -1,5 +1,5 @@
 class Api::SessionsController < ActionController::Base
-	require 'GithubService'
+	require 'github_service'
   
 	def login
 	    user = User.where("lower(username) = ?", params[:session][:user][:username].downcase).first

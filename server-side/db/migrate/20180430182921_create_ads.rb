@@ -5,7 +5,7 @@ class CreateAds < ActiveRecord::Migration[5.1]
       t.string :type
       t.string :description
       t.string :title
-      t.boolean :published, default: false
+      t.boolean :published, default: true
       t.boolean :sold, default: false
 
       t.timestamps

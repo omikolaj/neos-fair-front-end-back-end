@@ -1,4 +1,5 @@
 class Api::UsersController < ApplicationController
+    include FormatPrice
 
     def create
         user = User.new(user_params)
@@ -13,7 +14,7 @@ class Api::UsersController < ApplicationController
     def show
         user = User.find_by(:id=>params[:id])
         if user
-            userInfo = {name: user.name, username: user.username, email: user.email}
+            userInfo = {name: user.name, username: user.username, email: user.email, wallet: format(user.wallet)}
             render json: {userInfo: userInfo, status: 200}, status: 200
         else
             render json: {error: "There was an error retrieving user information.", status: 404}, status: 404

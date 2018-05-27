@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20180502212410) do
     t.string "type"
     t.string "description"
     t.string "title"
-    t.boolean "published", default: false
+    t.boolean "published", default: true
     t.boolean "sold", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 20180502212410) do
     t.string "email"
     t.boolean "oauth", default: false
     t.integer "uid", default: -1
+    t.money "wallet", scale: 2, default: "1000.0"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "token"
