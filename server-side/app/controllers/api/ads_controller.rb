@@ -1,4 +1,18 @@
 class Api::AdsController < ApplicationController
+    include FormatPrice
+
+    def pay
+        user = User.find_by(:id=>params[:userID])
+        price = params[:price]
+        if(format_f(user.wallet).to_f.round(2) >= price.to_f.round(2))
+            updatedWallet = format_f(user.wallet).to_f.round(2) - price.to_f.round(2)
+            user.update_attribute(:wallet, BigDecimal.new("#{updatedWallet}"))
+            user.orders.create(:ad_item_id => Ad.find_by(:id => params[:userID]).ad_item.id)
+            render json: {success: "You have successfully purchased your item", status: 200}, status: 200     
+        else
+            render json: {fail: "You do not have enough money to purchase this item", status: 401}, status: 401
+        end
+    end
     
     def index
         if user = User.find_by(:id => params[:user_id])
@@ -46,7 +60,7 @@ class Api::AdsController < ApplicationController
 
     private
     def ad_params
-        params.require(:ad).permit(:id, :auth, :title, :description, :user_id, :ad_item_attributes => [:price], :user_attributes => [:id], :item_attributes => [:title, :condition], :category_attributes => [:name])
+        params.require(:ad).permit(:id, :price, :auth, :title, :description, :user_id, :ad_item_attributes => [:price], :user_attributes => [:id], :item_attributes => [:title, :condition], :category_attributes => [:name])
     end
 
 end

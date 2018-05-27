@@ -4,10 +4,12 @@ Rails.application.routes.draw do
 
     resources :users do
       resources :drafts, :controller => :ad, type: 'Draft'
-      resources :ads
+      resources :ads  
       resources :orders
     end
 
+    post '/pay', to: 'ads#pay'
+    
     post '/login', to: 'sessions#login'
     post '/guest', to: 'sessions#guest'
     get '/auth/github/callback', to: 'sessions#github'    
