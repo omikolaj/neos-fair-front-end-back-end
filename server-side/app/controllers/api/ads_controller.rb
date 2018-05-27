@@ -4,9 +4,9 @@ class Api::AdsController < ApplicationController
         user = User.find_by(:id=>params[:userID])
         price = params[:price]
         adID = params[:adID]
-        if(user)
+        if user
             if !user.ads.find_by(:id=> adID)
-                # if user.new_purchase?(adID)
+                if user.new_purchase?(adID)
                     if user.can_afford?(price)
                         user.adjust_wallet(price)
                         user.create_new_order(adID)  
@@ -15,9 +15,9 @@ class Api::AdsController < ApplicationController
                     else
                         render json: {fail: "You do not have enough money to purchase this item", status: 401}, status: 401
                     end
-                # else
-                #     render json: {fail: "You have already purchased this item", status: 401}, status: 401
-                # end
+                else
+                    render json: {fail: "You have already purchased this item", status: 401}, status: 401
+                end
             else
                 render json: {fail: "You cannot buy your own item", status: 401}, status: 401
             end

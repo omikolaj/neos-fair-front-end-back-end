@@ -17,9 +17,10 @@ class User < ApplicationRecord
     # validates :last_name, presence: true
     include FormatPrice
 
-    # def self.new_purchase?(userID, adID)
-    #     select * from users inner join orders on users.id=orders.user_id inner join ad_items on orders.ad_item_id=ad_items.id.to
-    # end
+    def new_purchase?(adID)
+        ad = Ad.find_by(:id=>adID)
+        self.orders.find_by(:ad_item_id=>ad.ad_item_id) ? false : true
+    end
 
     def can_afford?(price)
         format_f(self.wallet).to_f.round(2) >= price.to_f.round(2)
