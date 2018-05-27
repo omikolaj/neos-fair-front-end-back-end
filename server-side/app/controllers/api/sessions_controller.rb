@@ -6,7 +6,7 @@ class Api::SessionsController < ActionController::Base
 		if user && user.authenticate(params[:session][:user][:password])
         	auth_token = auth_token(user.id)
         	render json: {token: auth_token, expiresIn: ENV["EXPIRES_IN"], userID: user.id, status: 200}, status: 200
-    	else
+		else
 	        render json: {error: 'Invalid username / password', status: 401}, status: 401
 	    end
 	end
