@@ -27,7 +27,7 @@ class Api::AdsController < ApplicationController
     def update
         if ad = User.find_by(:id => params[:user_id]).ads.find_by(:id=>params[:id])
             ad.update_attributes!(:published => !ad.published)
-            ad = {:id => ad.id, :ad_item_id => ad.ad_item_id, :description => ad.description, :title => ad.title, :published =>ad.published}
+            ad = {:id => ad.id, :ad_item_id => ad.ad_item_id, :description => ad.description, :title => ad.title, :published => ad.published}
             render json: {:success => "Successfully updated ad's status", ad: ad, status: 200}, status: 200
         else
             render json: {:fail => 'User or ad were not found', :validations => ad.errors.full_messages, :status=>400}, status: 400
