@@ -8,13 +8,13 @@
 
 # User.create(:name => 'Oskar Miko', :email =>'osk@gmail.com', :password => "password", :username=>"TheBetterKind")
 
-AdItem.create(:user_id => 1, :price=>100, :post_date=>DateTime.now.to_date)
-AdItem.create(:user_id => 1, :price=>200, :post_date=>DateTime.now.to_date)
-AdItem.create(:user_id => 1, :price=>300, :post_date=>DateTime.now.to_date)
-AdItem.create(:user_id => 1, :price=>400, :post_date=>DateTime.now.to_date)
-AdItem.create(:user_id => 1, :price=>500, :post_date=>DateTime.now.to_date)
-AdItem.create(:user_id => 1, :price=>600, :post_date=>DateTime.now.to_date)
-AdItem.create(:user_id => 1, :price=>700, :post_date=>DateTime.now.to_date)
+AdItem.create(:user_id => 1, :price=>10, :post_date=>DateTime.now.to_date)
+AdItem.create(:user_id => 1, :price=>20, :post_date=>DateTime.now.to_date)
+AdItem.create(:user_id => 1, :price=>30, :post_date=>DateTime.now.to_date)
+AdItem.create(:user_id => 1, :price=>40, :post_date=>DateTime.now.to_date)
+AdItem.create(:user_id => 1, :price=>50, :post_date=>DateTime.now.to_date)
+AdItem.create(:user_id => 1, :price=>60, :post_date=>DateTime.now.to_date)
+AdItem.create(:user_id => 1, :price=>70, :post_date=>DateTime.now.to_date)
 
 
 Item.create(:title => "Barbie", :condition=>"used",:ad_item_id => 1)

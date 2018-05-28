@@ -12,11 +12,10 @@ class Api::OrdersController < ApplicationController
 
   private
   def retrieve_orders_hash(user)
-    userOrders = Hash.new
     userOrdersArr = []
     user.orders.each_with_index do |order, index|
       orderItem = {title: order.item.title, condition: order.item.condition}
-      userOrders["order_#{index+1}"] = {item: orderItem, price: format(order.item.ad_item.price)}
+      userOrders = {"order" => {item: orderItem, price: format(order.item.ad_item.price)}}
       userOrdersArr.push(userOrders)
     end
     userOrdersArr
