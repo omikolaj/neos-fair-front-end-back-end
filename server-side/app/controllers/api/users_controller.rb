@@ -26,7 +26,7 @@ class Api::UsersController < ApplicationController
             if amount = params[:recharge]
                 if user
                     if user.recharge(amount)                        
-                        render json: {success: "Your account was successfully recharged", wallet: format(user.wallet), status: 200}, status: 200
+                        render json: {success: "Your account was successfully recharged $#{amount}.00", wallet: format(user.wallet), status: 200}, status: 200
                     else                        
                         render json: {fail: "You have reached your limit", status: 401}, status: 401
                     end

@@ -8,13 +8,11 @@ class User < ApplicationRecord
     has_many :items, :through => :ads
     has_many :orders
     validates :email, presence: true
-    validates_uniqueness_of :email, case_sensitive: false
-    # validates_format_of :email, with /@/
+    validates_uniqueness_of :email, case_sensitive: false    
     validates :password, :length => {:within=>6..100}, :presence => true, unless: :oauth
     validates :username, presence: true
     validates_uniqueness_of :username, case_sensitive: false
-    validates :name, presence: true
-    # validates :last_name, presence: true
+    validates :name, presence: true    
     include FormatPrice
 
     def recharge(amount)
