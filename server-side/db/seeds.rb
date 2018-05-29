@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-# User.create(:name => 'Oskar Miko', :email =>'osk@gmail.com', :password => "password", :username=>"TheBetterKind")
+User.create(:name => 'Oskar Miko', :email =>'osk@gmail.com', :password => "password", :username=>"TheBetterKind")
 
 AdItem.create(:user_id => 1, :price=>10, :post_date=>DateTime.now.to_date)
 AdItem.create(:user_id => 1, :price=>20, :post_date=>DateTime.now.to_date)

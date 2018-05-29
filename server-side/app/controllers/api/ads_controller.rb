@@ -29,7 +29,7 @@ class Api::AdsController < ApplicationController
     
     def index
         if user = User.find_by(:id => params[:user_id])
-            ads = user.ads.where('sold = ?', false)
+            ads = user.ads.where('sold = ?', false).order('published ASC')
             render json: {ads: ads, status: 200}, status: 200
         else
             ads = Ad.where("published = ? AND sold = ?", true, false)        
