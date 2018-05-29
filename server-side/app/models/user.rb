@@ -18,7 +18,7 @@ class User < ApplicationRecord
     include FormatPrice
 
     def recharge(amount)
-        if format_f(self.wallet).to_f.round(2) < 5000.00            
+        if format_f(self.wallet).to_f.round(2) < 10000.00            
             recharge_amount = format_f(self.wallet).to_f.round(2) + amount.to_f.round(2)
             self.update_attribute(:wallet, BigDecimal.new("#{recharge_amount}"))
             return true
