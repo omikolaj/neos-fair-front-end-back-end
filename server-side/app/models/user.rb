@@ -17,6 +17,16 @@ class User < ApplicationRecord
     # validates :last_name, presence: true
     include FormatPrice
 
+    def recharge(amount)
+        if format_f(self.wallet).to_f.round(2) < 5000.00            
+            recharge_amount = format_f(self.wallet).to_f.round(2) + amount.to_f.round(2)
+            self.update_attribute(:wallet, BigDecimal.new("#{recharge_amount}"))
+            return true
+        else
+            return false
+        end
+    end
+
     def new_purchase?(adID)
         ad = Ad.find_by(:id=>adID)
         self.orders.find_by(:ad_item_id=>ad.ad_item_id) ? false : true

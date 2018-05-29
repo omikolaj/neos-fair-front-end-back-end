@@ -18,17 +18,29 @@ class Api::UsersController < ApplicationController
             render json: {userInfo: userInfo, status: 200}, status: 200
         else
             render json: {error: "There was an error retrieving user information.", status: 404}, status: 404
-        end
+        end           
     end
 
-    def update       
-        if user = User.find_by(:id=>user_params["id"])
-            if user.update(user_params)
-                userInfo = {name: user.name, username: user.username, email: user.email}
-                render json: {success: "Account successfully updated!", userInfo: userInfo, status: 200}, status: 200            
+    def update
+        if user = User.find_by(:id=>params["id"])
+            if amount = params[:recharge]
+                if user
+                    if user.recharge(amount)                        
+                        render json: {success: "Your account was successfully recharged", wallet: format(user.wallet), status: 200}, status: 200
+                    else                        
+                        render json: {fail: "You have reached your limit", status: 401}, status: 401
+                    end
+                end
+            else
+                if user.update(user_params)
+                    userInfo = {name: user.name, username: user.username, email: user.email, wallet: format(user.wallet)}
+                    render json: {success: "Account successfully updated!", userInfo: userInfo, status: 200}, status: 200                            
+                else
+                    render json: {fail: "Account did not update", status: 400}, status: 400
+                end
             end
         else
-            render json: {fail: "Account did not update", status: 400}, status: 400
+            render json: {fail: "User not found", status: 400}, status: 400
         end
     end
 

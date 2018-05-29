@@ -6,7 +6,7 @@ Rails.application.routes.draw do
       resources :drafts, :controller => :ad, type: 'Draft'
       resources :ads  
       resources :orders
-    end
+    end    
 
     post '/pay', to: 'ads#pay'
     
