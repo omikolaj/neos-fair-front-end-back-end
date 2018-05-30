@@ -27,13 +27,18 @@ class Api::AdsController < ApplicationController
         end        
     end
     
-    def index
-        if user = User.find_by(:id => params[:user_id])
-            ads = user.ads.where('sold = ?', false).order('published ASC')
-            render json: {ads: ads, status: 200}, status: 200
+    def index        
+        if authenticate_request!
+            if user = User.find_by(:id => params[:user_id])
+                ads = user.ads.where('sold = ?', false).order('published ASC')
+                render json: {ads: ads, status: 200}, status: 200
+            else
+                ads = Ad.where("published = ? AND sold = ?", true, false)
+                newAds = serialize_ads(ads) 
+                render json: {ads:newAds, status: 200}, status: 200 # Non-Authoritative Information
+            end
         else
-            ads = Ad.where("published = ? AND sold = ?", true, false)        
-            render json: ads, status: 200 # Non-Authoritative Information
+            render json: {fail: "Unauthorized Request", status: 401}, status: 401
         end
     end
 
@@ -74,6 +79,15 @@ class Api::AdsController < ApplicationController
     private
     def ad_params
         params.require(:ad).permit(:id, :price, :auth, :title, :description, :user_id, :ad_item_attributes => [:price], :user_attributes => [:id], :item_attributes => [:title, :condition], :category_attributes => [:name])
+    end
+
+    def serialize_ads(ads)
+        newAds = []
+        ads.each do |ad|
+            ad = {title: ad.title, description: ad.description, id: ad.id, published: ad.published, type: ad.type, ad_item: ad.ad_item, category: ad.category, item: ad.item, user: ad.user}
+            newAds.push(ad)
+        end
+        newAds
     end
 
 end
