@@ -47,15 +47,12 @@ class Api::AdsController < ApplicationController
         render json: ad, status: 200
     end
 
-    def create
-        binding.pry
-        a = nil
-        if a #authenticate_request!
+    def create        
+        if authenticate_request!
             ad = Ad.new(ad_params)
             if ad.save
                 render json: { :success => "You're add has been successfully posted", :id => ad.id, status: 201 }, status: 201 # Created
             else
-                binding.pry
                 render json: { :fail => "Something went wrong.", :validations => ad.errors.full_messages, :status=> 400}, status: 400 # Bad Request
             end
         else
