@@ -21,15 +21,14 @@ class Api::AdsController < ApplicationController
             else
                 render json: {fail: "You cannot buy your own item", status: 401}, status: 401
             end
-            
         else
             render json: {fail: "Something went wrong...", status: 401}, status: 401
-        end        
+        end
     end
     
     def index        
         if authenticate_request!
-            if user = User.find_by(:id => params[:user_id])
+            if user = User.find_by(:id => params[:user_id2])
                 ads = user.ads.where('sold = ?', false).order('published ASC')
                 render json: {ads: ads, status: 200}, status: 200
             else
@@ -43,8 +42,16 @@ class Api::AdsController < ApplicationController
     end
 
     def show
-        ad = Ad.find_by_id(params[:id])
-        render json: ad, status: 200
+        if authenticate_request!
+            if ad = Ad.find_by_id(params[:id])            
+                adDetails = serialize_ad(ad)
+                render json: {description: ad.description, id: ad.id, published: ad.published, title: ad.title, type: ad.type, user: ad.user, item: ad.item, category: ad.category, ad_item: ad.ad_item, status: 200}, status: 200
+            else
+                render json: {fail: "Ad was not found", status: 400}, status: 400
+            end
+        else
+            render json: {fail: "Unauthorized Request", status: 401}, status: 401
+        end
     end
 
     def create        
@@ -92,6 +99,10 @@ class Api::AdsController < ApplicationController
             newAds.push(ad)
         end
         newAds
+    end
+
+    def serialize_ad(ad)
+        
     end
 
 end

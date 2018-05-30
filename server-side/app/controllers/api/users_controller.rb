@@ -12,13 +12,17 @@ class Api::UsersController < ApplicationController
     end
 
     def show
-        user = User.find_by(:id=>params[:id])
-        if user
-            userInfo = {name: user.name, username: user.username, email: user.email, wallet: format(user.wallet)}
-            render json: {userInfo: userInfo, status: 200}, status: 200
+        if authenticate_request!
+            user = User.find_by(:id=>params[:id])
+            if user
+                userInfo = {name: user.name, username: user.username, email: user.email, wallet: format(user.wallet)}
+                render json: {userInfo: userInfo, status: 200}, status: 200
+            else
+                render json: {fail: "There was an error retrieving user information.", unauthorized: false, status: 404}, status: 404
+            end           
         else
-            render json: {error: "There was an error retrieving user information.", status: 404}, status: 404
-        end           
+            render json: {fail: "Unauthorized Request", unauthorized: true, status: 401}, status: 401
+        end
     end
 
     def update
