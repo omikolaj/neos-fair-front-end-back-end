@@ -48,11 +48,18 @@ class Api::AdsController < ApplicationController
     end
 
     def create
-        ad = Ad.new(ad_params)
-        if ad.save
-            render json: { :success => "You're add has been successfully posted", :id => ad.id, status: 201 }, status: 201 # Created
+        binding.pry
+        a = nil
+        if a #authenticate_request!
+            ad = Ad.new(ad_params)
+            if ad.save
+                render json: { :success => "You're add has been successfully posted", :id => ad.id, status: 201 }, status: 201 # Created
+            else
+                binding.pry
+                render json: { :fail => "Something went wrong.", :validations => ad.errors.full_messages, :status=> 400}, status: 400 # Bad Request
+            end
         else
-            render json: { :fail => "Something went wrong.", :validations => ad.errors.full_messages, :status=> 400}, status: 400 # Bad Request
+            render json: { :fail => "Unauthorized request", :validations => [], :status=> 401}, status: 401
         end
     end
 
