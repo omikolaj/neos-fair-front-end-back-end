@@ -5,7 +5,6 @@ import Aux from '../../../hoc/Aux/Aux';
 import UserOrder from '../../../components/UserConsole/UserOrder/UserOrder';
 import cuid from 'cuid';
 import FlashMessage from '../../Utils/FlashMessage/FlashMessage';
-import * as actions from '../../../store/actions/index';
 
 class UserOrders extends Component {
 
